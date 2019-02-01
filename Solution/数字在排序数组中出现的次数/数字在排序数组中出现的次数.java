@@ -4,7 +4,6 @@
 */
 
 
-
 public class Solution {
     public int GetNumberOfK(int [] array , int k) {
         int length = array.length;
@@ -18,8 +17,8 @@ public class Solution {
         }
         return 0;
     }
-    //递归写法
-    private int getFirstK(int [] array , int k, int start, int end){
+    //递归写法，找到该数字出现的第一个位置
+    public int getFirstK(int [] array , int k, int start, int end){
         if(start > end){
             return -1;
         }
@@ -37,8 +36,8 @@ public class Solution {
             return mid;
         }
     }
-    //循环写法
-    private int getLastK(int [] array , int k, int start, int end){
+    //循环写法，找到该数字出现的最后一个位置 
+    public int getLastK(int [] array , int k, int start, int end){
         int length = array.length;
         int mid = (start + end) / 2 ;
         while(start <= end){
