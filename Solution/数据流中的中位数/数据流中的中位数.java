@@ -20,29 +20,26 @@ public class Solution {
     
     public void Insert(Integer num) {
         count ++;
-=
+
         if( (count % 2) == 0 ){  //当数据总数为偶数时，新加入的元素，应当进入小根堆
                              //（注意不是直接进入小根堆，而是经大根堆筛选后取大根堆中最大元素进入小根堆）
 
-            if(maxHeap.isEmpty() == false && num < maxHeap.peek()){   // 新加入的元素先入到大根堆，由大根堆筛选出堆中最大的元素
-                maxHeap.offer(num);
-                num = maxHeap.poll();
-            }
-            minHeap.offer(num);          // 筛选后的【大根堆中的最大元素】进入小根堆
+            
+            maxHeap.offer(num);       // 新加入的元素先入到大根堆，由大根堆筛选出堆中最大的元素（自动完成）
+            num = maxHeap.poll();
+            minHeap.offer(num);          // 筛选排序后的【大根堆中的最大元素】进入小根堆
         }
-        else{             //当数据总数为奇数时，新加入的元素，应当进入大根堆
+        else{             //当数据总数为奇数时，新加入的元素，应当进入大根堆（自动完成）
                     //（注意不是直接进入大根堆，而是经小根堆筛选后取小根堆中最大元素进入大根堆）
-            if(minHeap.isEmpty() == false && num > minHeap.peek()){  // 新加入的元素先入到小根堆，由小根堆筛选出堆中最小的元素
-                minHeap.offer(num);
-                num = minHeap.poll();
-            }
+             
+            minHeap.offer(num);  // 新加入的元素先入到小根堆，由小根堆筛选出堆中最小的元素
+            num = minHeap.poll();
             maxHeap.offer(num);   // 筛选后的【小根堆中的最小元素】进入大根堆
         }
+         //   count ++;   如果在这个位置，最后的 GetMedian 中count为奇数的时候是 result = minHeap.peek() 
     }
 
     public Double GetMedian() {
-        if(count == 0)
-            throw new RuntimeException("no available number!");
         double result;
         if((count % 2) == 1)
             result = maxHeap.peek();
