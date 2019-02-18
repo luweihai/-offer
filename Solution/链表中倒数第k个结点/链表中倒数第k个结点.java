@@ -7,22 +7,22 @@
 
 public class Solution {
     public ListNode FindKthToTail(ListNode head,int k) {
-        if(head == null)
+        if(head == null || k <= 0)
             return null;
-        int count = k;
         ListNode preHead = new ListNode(0);
         preHead.next = head;
         ListNode fast = preHead;
-        for(int i = 0 ; i < k ; i++){
+        while(k > 0 && fast != null){
             fast = fast.next;
-            if(fast == null)
-                return null;
+            k --;
         }
+        if(fast == null)
+            return null;
         ListNode slow = preHead;
-        while(fast.next != null){   // 跳出循环的时候，fast是最后一个结点,slow.next是倒数第k个
+        while(fast != null){
             fast = fast.next;
             slow = slow.next;
         }
-        return slow.next;
+        return slow;
     }
 }
