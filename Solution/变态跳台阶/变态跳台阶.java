@@ -1,23 +1,18 @@
 /*
-要理解题目的意思，既然每次可以跳不限制个台阶，那么每次个台阶都可以从底下其他全部的位置跳上来
-利用 dp[]数组存储跳到当前台阶的方法数目
-也就有  dp[n] = dp[n - 1] + dp[n - 2] + ... + dp[1] + dp[0]
+因为n级台阶，第一步有n种跳法：跳1级、跳2级、到跳n级
+跳1级，剩下n-1级，则剩下跳法是f(n-1)
+跳2级，剩下n-2级，则剩下跳法是f(n-2)
+所以f(n) = f(n-1) + f(n-2) +...+ f(1)
+因为f(n-1) = f(n-2) + f(n-3) +...+ f(1)
+所以f(n) = 2 * f(n-1)
 */
 
 public class Solution {
     public int JumpFloorII(int target) {
-        int dp[] = new int[target];
         if(target == 1)
             return 1;
         if(target == 2)
             return 2;
-        dp[0] = 1;
-        dp[1] = 2;
-        for(int i = 0 ; i < target ; i ++){
-            for(int j = 0 ; j < i ; j ++){
-                dp[i] = dp[i] + dp[j];
-            }
-        }
-        return dp[target - 1];
+        return 2 * JumpFloorII(target - 1);
     }
 }

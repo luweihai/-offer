@@ -22,16 +22,16 @@ array[low] = 4 ;array[mid] = 4 ; array[high] = 6 ;
 public class Solution {
     public int minNumberInRotateArray(int [] array) {
         int low = 0 ; int high = array.length - 1;   
-        while(low < high){
+        while(low <= high){
             int mid = low + (high - low) / 2;        
-            if(array[mid] > array[high]){
+            if(array[mid] > array[high]){     // 记住这里是 mid 和 high 比较
                 low = mid + 1;
-            }
+            }  
             else if(array[mid] == array[high]){
                 high = high - 1;    // 记住此处是 high = high - 1
             }
             else{
-                high = mid;       // 记住此处是 high = mid 
+                high = mid;       // 记住此处是 high = mid，这里都好理解
             }   
         }
         return array[low];

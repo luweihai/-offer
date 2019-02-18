@@ -7,6 +7,37 @@
 */
 
 
+/*
+最简单的办法，新建一个 StringBuffer，然后从原先StringBuffer逐个扫描判断是否是 " "就可以了
+*/
+public class Solution {
+    public String replaceSpace(StringBuffer str) {
+        StringBuffer out = new StringBuffer();
+        for (int i = 0; i < str.length(); i++) {
+            char b = str.charAt(i);
+            if(String.valueOf(b).equals(" ")){
+                out.append("%20");
+            }
+            else{
+                out.append(b);
+            }
+        }
+        return out.toString();     
+    }
+}
+
+
+//  利用正则表达式中 和 String 的 replaceAll()方法
+public class Solution {
+    public String replaceSpace(StringBuffer str) {
+        return str.toString().replaceAll("\\s", "%20");
+    }
+}
+
+
+
+
+
 public class Solution {
     public String replaceSpace(StringBuffer str) {
     	if(str == null || str.length() == 0)

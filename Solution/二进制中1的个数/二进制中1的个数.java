@@ -6,9 +6,10 @@ Java中右移规则：
       >>> 无符号右移 ， 全部以0填充
 */
 
+
 // 感觉这个更好理解一点 
 public class Solution {
-    public int hammingWeight(int n) {
+    public int NumberOf1(int n) {
         int count = 0;
         int flag = 1;
         while( flag != 0 ){
@@ -24,7 +25,7 @@ public class Solution {
 
 
 public class Solution {
-    public int hammingWeight(int n) {
+    public int NumberOf1(int n) {
         int count = 0;
         while(n != 0 ){
             if( (n & 1) == 1){  // 真正有影响的是最右边1位 
