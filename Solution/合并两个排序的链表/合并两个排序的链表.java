@@ -4,6 +4,29 @@
 如果没有被访问过，就全部插入到结果链表的最后面
 */
 
+// 简单的递归代码
+public class Solution {
+    public ListNode Merge(ListNode list1,ListNode list2) {
+        if(list1 == null)
+            return list2;
+        if(list2 == null)
+            return list1;
+        ListNode result ;
+        if(list1.val < list2.val){
+            result = list1;
+            result.next = Merge(list1.next , list2);
+        }
+        else{
+            result = list2;
+            result.next = Merge(list1 , list2.next);
+        }
+        return result;
+    }
+}
+
+
+
+
 public class Solution {
     public ListNode Merge(ListNode list1,ListNode list2) {
         if(list1 == null)

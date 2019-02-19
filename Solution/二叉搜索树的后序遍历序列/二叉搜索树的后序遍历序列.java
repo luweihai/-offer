@@ -28,6 +28,6 @@ public class Solution {
             if(sequence[j] > sequence[root])
                 return false;
         }
-        return true;
+        return judge(sequence , left , i ) && judge(sequence , i  , root - 1);
     }
 }

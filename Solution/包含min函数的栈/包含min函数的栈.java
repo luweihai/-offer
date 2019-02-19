@@ -12,7 +12,7 @@ public class Solution {
     Stack<Integer> stack = new Stack<>();
     Stack<Integer> minstack = new Stack<>();
     public void push(int node) {
-        if(minstack.isEmpty() == true || minstack.peek() > node){
+        if(minstack.isEmpty() == true || minstack.peek() > node){     // 关键是这里以及接下来的几句   这几句实现了两个栈的同步
             minstack.push(node);
         }
         else{
