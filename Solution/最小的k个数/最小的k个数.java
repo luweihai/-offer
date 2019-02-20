@@ -15,21 +15,21 @@
 public class Solution {
     public ArrayList<Integer> GetLeastNumbers_Solution(int [] input, int k) {
         ArrayList<Integer> result = new ArrayList<>();
-        if(input == null || input.length == 0 || k <= 0)
+        if(input == null || input.length == 0)
             return result;
-        if(input.length < k)
+        if(k <= 0 || k > input.length)
             return result;
-        int start = 0;
-        int end = input.length - 1;
-        int index = patition(input , start , end);
-        while(index != k - 1){
-            if(index < k - 1){
-                start = index + 1;
-                index = patition(input , start , end);
+        int left = 0 ,  right = input.length - 1;
+        int index = patition(input , left , right);
+        
+        while(index != k - 1){   // 索引，当然是 k - 1
+            if(index > k - 1){
+                right = index - 1;
+                index = patition(input , left , right);
             }
             else{
-                end = index - 1;
-                index = patition(input , start , end);
+                left = index + 1;
+                index = patition(input , left , right);
             }
         }
         for(int i = 0 ; i < k ; i ++){
@@ -37,24 +37,24 @@ public class Solution {
         }
         return result;
     }
-    public int patition(int[] arr , int start , int end){
-        int pivotKey = arr[start];
-        while(start < end){
-            while(start < end && arr[end] >= pivotKey){
-                end --;
+    public int patition(int[] input , int left , int right){
+        int pivotKey = input[left];
+        while(left < right){    // 记住patition方法外层 while 是 start < end,相等的时候只有一个元素则不用划分了
+            while(left < right && input[right] >= pivotKey){ // 这里也要 start < end    然后记住patition中与 轴元素的大小判断要有 = 
+                right --;
             }
-            swap(arr , start , end);
-            while(start < end  && arr[start] <= pivotKey){
-                start ++;
+            swap(input , left , right);
+            while(left < right && input[left] <= pivotKey){
+                left ++;
             }
-            swap(arr , start , end);
+            swap(input , left , right);
         }
-        return start ;                //  记住这里是返回 start
+        return left;     // 记住 patition 都是返回 start
     }
-    public void swap(int[] arr , int left , int right){
-        int temp = arr[left];
-        arr[left] = arr[right];
-        arr[right] = temp;
+    public void swap(int[] input , int left , int right){
+        int temp = input[left];
+        input[left] = input[right];
+        input[right] = temp;
     }
 }
 
@@ -67,19 +67,18 @@ public class Solution {
 public class Solution {
     public ArrayList<Integer> GetLeastNumbers_Solution(int [] input, int k) {
         ArrayList<Integer> result = new ArrayList<>();
-        if(input == null || input.length == 0)
+        if(input == null || input.length == 0 || k <= 0 || k > input.length)
             return result;
-        if(input.length < k)
-            return result;
+        // 冒泡排序关键是要想清楚下面2个循环的逻辑
         for(int i = 0 ; i < k ; i ++){
-            for(int j = 0 ; j < input.length - i - 1 ; j ++){
-                if(input[j] < input[j + 1] ){
+            for(int j = input.length - 1 ; j >= i + 1 ; j --){
+                if(input[j] < input[j - 1]){   // 把小的交换到左边
                     int temp = input[j];
-                    input[j] = input[j + 1];
-                    input[j + 1] = temp;
+                    input[j] = input[j - 1];
+                    input[j - 1] = temp;
                 }
             }
-            result.add(input[input.length - i - 1]);
+            result.add(input[i]);   // 在这里添加进结果好点儿
         }
         return result;
     }

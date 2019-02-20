@@ -11,23 +11,25 @@
 
 public class Solution {
     public boolean VerifySquenceOfBST(int [] sequence) {
-        if(sequence == null || sequence.length == 0)
+        if(sequence == null || sequence.length == 0)  // 空的话不为任何树的后序遍历序列
             return false;
         if(sequence.length == 1)
             return true;
-        return judge(sequence , 0 , sequence.length - 1);
+        boolean result = judge(sequence , 0 , sequence.length - 1);
+        return result;
     }
     public boolean judge(int[] sequence , int left , int root){
-        if(left >= root)
+        if(left >= root){
             return true;
-        int i = root - 1;   // 从右边往左边找最右的左子树结点，注意是从 root左边第一个位置开始
-        while( sequence[i] > sequence[root] && i > left ){
-            i --;
         }
-        for(int j = left ; j < i  ; j ++){  // j 是不能到 i 的
-            if(sequence[j] > sequence[root])
+        int index = root - 1;     // index是左子树的最右边的结点， 从右边往左边找最右的左子树结点，注意是从 root左边第一个位置开始
+        while(sequence[index] > sequence[root] && index > left){ 
+            index --;
+        }
+        for(int i = left ; i < index ; i ++){
+            if(sequence[i] > sequence[root])
                 return false;
         }
-        return judge(sequence , left , i ) && judge(sequence , i  , root - 1);
+        return judge(sequence , left , index) && judge(sequence , index + 1 , root - 1);
     }
 }

@@ -8,17 +8,16 @@
 */
 
 
-
 public class Solution {
     public TreeNode Convert(TreeNode root) {
         if(root == null)
             return null;
         if(root.left == null && root.right == null)
             return root;
-        TreeNode left = Convert(root.left);
+        TreeNode left = Convert(root.left); // 不会改变 root 到 root.left 的指针,left返回的是最左边的指针
         if(left != null){
             TreeNode pre = root.left;
-            while(pre != null && pre.right != null){
+            while( pre.right != null){
                 pre = pre.right;
             }
             pre.right = root;
@@ -26,12 +25,14 @@ public class Solution {
         }
         TreeNode right = Convert(root.right);
         if(right != null){
-            right.left = root;
             root.right = right;
+            right.left = root;
         }
-        if(left != null)  // 这个 if - else 是值得注意的点
-            return left;
-        else
+        if(left == null){   // 这个 if else 要理解
             return root;
+        }
+        else{
+            return left;
+        }
     }
 }
