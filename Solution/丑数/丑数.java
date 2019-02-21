@@ -25,38 +25,17 @@
 乘以5的队列：5,10,15,20
 选择三个队列头里最小的数5加入丑数数组，同时将该最小的数乘以2,3,5放入三个队列；
 （5）丑数数组：1,2,3,4,5
+乘以2的队列：6,8,10，       注意这里有2个6 ， 不能用 if-else结构，不然 6 会被计算 2 次
+乘以3的队列：6,9,12,15
+乘以5的队列：10,15,20,25
+（6）丑数数组：1,2,3,4,5,6
 乘以2的队列：6,8,10，
 乘以3的队列：6,9,12,15
 乘以5的队列：10,15,20,25
 */
 
 
-// 附加题 丑数的判断
-class Solution {
-    public int nthUglyNumber(int n) {
-        if(n <= 0)
-            return 0;
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        int i2 = 0 , i3 = 0 , i5 = 0;
-        while(list.size() < n){
-            int m2 = list.get(i2) * 2;
-            int m3 = list.get(i3) * 3;
-            int m5 = list.get(i5) * 5;
-            int min = Math.min(m2 , Math.min(m3 , m5));
-            list.add(min);
-            if(min == m2)
-                i2 ++;
-            if(min == m3)
-                i3 ++;
-            if(min == m5)
-                i5 ++;
-        }
-        return list.get(list.size() - 1);
-    }
-}
 
-import java.util.ArrayList;
 public class Solution {
     public int GetUglyNumber_Solution(int index) {
         if(index <= 0 )
@@ -70,7 +49,7 @@ public class Solution {
             int m5 = list.get(i5) * 5;
             int min = Math.min(m2 , Math.min(m3 , m5));
             list.add(min);
-            if(min == m2){
+            if(min == m2){     // 注意下面不是 if-else结构，因为如果是 else就会有重复，例如 6 就被计算了2 次
                 i2 ++;
             }
             if(min == m3){

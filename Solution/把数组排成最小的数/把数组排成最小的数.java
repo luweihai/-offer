@@ -28,7 +28,7 @@ public class Solution {
         }
         Arrays.sort(str,new Comparator<String>(){   // 注意此处匿名内部类是关键
             @Override
-            public int compare(String s1, String s2) {
+            public int compare(String s1, String s2) {   // 这个比较函数也设计得巧妙
                 String c1 = s1 + s2;
                 String c2 = s2 + s1;
                 return c1.compareTo(c2);

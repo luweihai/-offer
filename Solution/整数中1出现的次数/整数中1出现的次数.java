@@ -16,20 +16,19 @@
 public class Solution {
     public int NumberOf1Between1AndN_Solution(int n) {
         int count = 0;
-        int i = 1;  // 当前位
-        int current = 0 , high = 0 , low = 0;
-        while((n / i ) != 0 ){
-            current = (n / i ) % 10 ;  // 当前位数字
-            high = n / ( i * 10);    // 高位数字
-            low = n - (n / i) * i;   // 低位数字
-            if(current == 0){
-                count = count + high * i;
+        int i = 1;   // i 表示当前位的单位
+        while( ( n / i) != 0){   // 从低位遍历到高位的有效办法
+            int cur = (n / i) % 10 ;   // 当前位的数字
+            int high = n /( i * 10);    // 更高位
+            int low = n - ( n / i) * i;   // 更低位
+            if(cur == 0){
+                count = count + high * i;   // high == 0时，低位一个都不符合
             }
-            else if(current == 1){
-                count = count + high * i + low + 1;
+            else if(cur == 1){
+                count = count + high * i + low + 1;  // high == 0时，低位从到0到low 符合
             }
             else{
-                count = count + (high + 1 ) * i;
+                count = count + ( high + 1 )* i ;  // high == 0时，低位全部符合，所以变成 high + 1
             }
             i = i * 10;
         }
