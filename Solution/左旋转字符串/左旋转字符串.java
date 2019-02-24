@@ -8,31 +8,24 @@
 
 public class Solution {
     public String LeftRotateString(String str,int n) {
-        char[] chars = str.toCharArray();        
-        if(chars.length < n) 
+        if(str == null || str.length() == 0 )
             return "";
-        reverse(chars, 0, n-1);
-        reverse(chars, n, chars.length-1);
-        reverse(chars, 0, chars.length-1);
-        StringBuilder sb = new StringBuilder(chars.length);
-        for(char c : chars){
-            sb.append(c);
-        }
-        return sb.toString();
+        char[] arr = str.toCharArray();
+        invert(arr , 0 , str.length() - 1);  
+        invert(arr , 0 , str.length() - n - 1);   // 要想清楚循环左移3位 应该反转哪些字符，用纸模拟下
+        invert(arr , str.length() - n  , str.length() - 1);
+        return String.valueOf(arr);
     }
-     
-    public void reverse(char[] chars,int low,int high){
-        char temp;
-        while(low<high){
-            temp = chars[low];
-            chars[low] = chars[high];
-            chars[high] = temp;
-            low++;
-            high--;
+    public void invert(char[] arr , int left , int right){
+        while(left < right){
+            char temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left ++;
+            right --;
         }
     }
 }
-
 
 
 

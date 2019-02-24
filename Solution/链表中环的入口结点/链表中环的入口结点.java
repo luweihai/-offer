@@ -14,7 +14,7 @@ public class Solution {
     public ListNode detectCycle(ListNode head) {
         if(head == null)
             return null;
-        if(head.next == head)
+        if(head.next == head)   // 这一个要注意
             return head;
         ListNode fast = head;
         ListNode slow = head;

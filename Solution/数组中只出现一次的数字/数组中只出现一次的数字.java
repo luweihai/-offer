@@ -12,47 +12,33 @@
 
 
 
-
-
-
-
-
 //num1,num2分别为长度为1的数组。传出参数
 //将num1[0],num2[0]设置为返回结果
 
 public class Solution {
-    public void FindNumsAppearOnce(int[] array, int[] num1, int[] num2)    {
-        int length = array.length;
-        if(length == 2){
-            num1[0] = array[0];
-            num2[0] = array[1];
-            return;
+    public void FindNumsAppearOnce(int [] array,int num1[] , int num2[]) {
+        if(array == null || array.length <= 1)
+            return ;
+        int temp = 0;    // 表示整个数组进行异或的结果
+        for(int i = 0 ; i < array.length ; i ++){  
+            temp = temp ^ array[i];
         }
-        int bitResult = 0;
-        for(int i = 0; i < length; ++i){
-            bitResult ^= array[i];
+        int cur = 1;  // 表示当前位（实际上是一个数，只有那一个位为1）
+        while( (temp & cur) == 0){   // 循环结束后，两个结果只在 cur表示的位出现一次
+            cur = cur << 1;
         }
-        int index = findFirst1(bitResult);
-        for(int i = 0; i < length; ++i){
-            if(isBit1(array[i], index)){    // 一部分 index处位为1
-                num1[0] ^= array[i];
-            }
-            else{                      // 另一部分 index 处位为0
-                num2[0] ^= array[i];
-            }
+        int[] array1 = new int[array.length];  
+        int[] array2 = new int[array.length];
+        for(int i = 0 ; i < array.length ; i ++){
+            if( (array[i] & cur) == 0 )   // 依据 cur位 进行分类
+                array1[i] = array[i];
+            else
+                array2[i] = array[i];
         }
-    }
-     
-    public int findFirst1(int bitResult){   // 找到结果中的一个为1的位
-        int index = 0;
-        while(((bitResult & 1) == 0) && index < 32){
-            bitResult >>= 1;
-            index++;
+        for(int i = 0 ; i < array.length ; i ++){
+            num1[0] = num1[0] ^ array1[i];
+            num2[0] = num2[0] ^ array2[i];
         }
-        return index;
-    }
-     
-    public boolean isBit1(int target, int index){  // 判断第index 位是否为 1
-        return ((target >> index) & 1) == 1;
+        return ;
     }
 }
