@@ -8,30 +8,35 @@
 */
 
 
-
 public class Solution {
- 
-    public int movingCount(int threshold, int rows, int cols) {
-        int flag[][] = new int[rows][cols];   //记录是否已经走过
-        return helper(0, 0, rows, cols, flag, threshold);
+    int count = 0;
+    public int movingCount(int threshold, int rows, int cols)
+    {
+        boolean[][] flag = new boolean[rows][cols];
+        dfs(threshold , 0 , 0 , rows , cols , flag );
+        return count;
     }
- 
-    public int helper(int i, int j, int rows, int cols, int[][] flag, int threshold) {
-        if (i < 0 || i >= rows || j < 0 || j >= cols || numSum(i) + numSum(j)  > threshold || flag[i][j] == 1) return 0;    
-        flag[i][j] = 1;
-        return helper(i - 1, j, rows, cols, flag, threshold)
-            + helper(i + 1, j, rows, cols, flag, threshold)
-            + helper(i, j - 1, rows, cols, flag, threshold)
-            + helper(i, j + 1, rows, cols, flag, threshold)
-            + 1;
-    }
- 
-    public int numSum(int t) {
-        int count = 0;
-        while (t != 0){
-            count = count + (t % 10);
-            t = t / 10;
+    public void dfs(int threshold , int i , int j , int rows , int cols , boolean[][] flag){
+        if(i < 0 || j < 0 || i >= rows || j >= cols || flag[i][j] ){
+            return ;
         }
-        return  count;
+        if( num(i) + num(j) > threshold )
+            return ;
+        count ++;
+        flag[i][j] = true;
+        dfs(threshold , i + 1 , j , rows , cols , flag);
+        dfs(threshold , i - 1 , j , rows , cols , flag);
+        dfs(threshold , i , j + 1 , rows , cols , flag);
+        dfs(threshold , i , j - 1 , rows , cols , flag);
+    }
+    public int num(int n){
+        if(n == 0)
+            return 0;
+        int result = 0;
+        while(n != 0){
+            result = result + (n % 10);
+            n = n / 10;
+        }
+        return result;
     }
 }
