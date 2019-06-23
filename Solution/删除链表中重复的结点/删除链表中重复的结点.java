@@ -32,3 +32,29 @@ public class Solution {
         return newHead.next;
     }
 }
+
+
+
+
+// 注意，这样就是删除重复的，每个不同值的结点保留一个，和题目不同
+public class Solution {
+    public ListNode deleteDuplication(ListNode pHead)
+    {
+        if(pHead == null || pHead.next == null){
+            return pHead;
+        }
+        ListNode newHead = new ListNode(-1);
+        newHead.next = pHead;
+        ListNode p = pHead;
+        ListNode q = newHead;
+        while(p != null){
+            while(p.val == q.val){
+                p = p.next;
+            }
+            q.next = p;
+            q = p;
+            p = p.next;
+        }
+        return newHead.next;
+    }
+}
