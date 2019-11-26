@@ -26,6 +26,24 @@ public class Solution {
     }
 }
 
+public class Solution {
+    public String replaceSpace(StringBuffer str) {
+    	if(str == null || str.length() == 0){
+            return "";
+        }
+        String result = "";
+        for(int i = 0 ; i < str.length() ; i++){
+            if(str.charAt(i) == ' '){
+                result = result + "%20";
+            }
+            else{
+                result = result + str.charAt(i);
+            }
+        }
+        return result;
+    }
+}
+
 
 //  利用正则表达式中 和 String 的 replaceAll()方法
 public class Solution {
